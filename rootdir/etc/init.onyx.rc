@@ -33,6 +33,10 @@ on fs
     restorecon_recursive /mnt/rescue
 
 on boot
+    # Workarround for cache
+     rm /data/resource-cache
+     rm /data/system/package_cache
+
     setprop persist.bluetooth.a2dp_offload.disabled false
 
     # Create persist for camera calibration data
