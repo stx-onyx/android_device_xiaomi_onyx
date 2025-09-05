@@ -63,6 +63,9 @@ $(call soong_config_set,qtiaudio,feature_sva_multi_stage,true)
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := sun
 
+# Bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/configs/bluetooth/include
+
 # Display
 TARGET_SCREEN_DENSITY := 504
 
