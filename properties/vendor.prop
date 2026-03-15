@@ -50,7 +50,6 @@ ro.bluetooth.a2dp_offload.supported=true
 # Camera
 persist.vendor.camera.logentry=1
 ro.camera.enableCamera1MaxZsl=1
-ro.camerax.extensions.enabled=true
 
 # Crypto
 ro.crypto.metadata_init_delete_all_keys.enabled=true
