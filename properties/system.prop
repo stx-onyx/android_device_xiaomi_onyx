@@ -13,6 +13,11 @@ persist.dbg.volte_avail_ovr=1
 persist.dbg.vt_avail_ovr=1
 persist.dbg.wfc_avail_ovr=1
 
+# LMKD
+ro.lmk.kill_heaviest_task=true
+ro.lmk.relaxed_available_memory=true
+ro.lmk.swap_compression_ratio=2
+
 # Media
 media.stagefright.thumbnail.prefer_hw_codecs=true
 ro.media.recorder-max-base-layer-fps=60
