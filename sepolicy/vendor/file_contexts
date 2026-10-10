@@ -103,6 +103,9 @@
 /dev/migt u:object_r:migt_dev:s0
 /sys/module/metis/parameters(/.*)? u:object_r:sysfs_migt:s0
 
+# Miev
+/dev/miev u:object_r:miev_device:s0
+
 # MliPay
 /(odm|vendor/odm|system/vendor)/bin/mlipayd u:object_r:hal_mlipay_default_exec:s0
 
