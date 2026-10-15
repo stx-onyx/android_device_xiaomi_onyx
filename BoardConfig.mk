@@ -262,4 +262,4 @@ WPA_SUPPLICANT_VERSION := VER_0_8_X
 include vendor/xiaomi/onyx/BoardConfigVendor.mk
 
 # Vendor MiuiCamera
--include device/xiaomi/onyx-miuicamera/BoardConfig.mk
+-include vendor/xiaomi/onyx-leicacamera/BoardConfigVendor.mk
