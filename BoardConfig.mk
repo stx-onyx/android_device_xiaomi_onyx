@@ -7,6 +7,10 @@ DEVICE_PATH := device/xiaomi/onyx
 
 BUILD_BROKEN_DUP_RULES := true
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
+# vendor/gms's com.google.android.tethering requires
+# libcom.android.tethering.connectivity_native_system, which the tracked
+# packages/modules/Connectivity doesn't define.
+BUILD_BROKEN_MISSING_REQUIRED_MODULES := true
 
 # A/B
 AB_OTA_UPDATER := true
