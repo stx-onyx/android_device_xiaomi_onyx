@@ -47,6 +47,15 @@ TARGET_PROVIDES_AUDIO_HAL := true
 TARGET_PROVIDES_LIBAGM := true
 TARGET_PROVIDES_LIBAR_PAL := true
 
+# StatiX's hardware/qcom-caf/common maps the audio features to soong config
+# in product config, before this file is read, so pass them here.
+$(call soong_config_set,qtiaudio,feature_extended_compress_format,true)
+$(call soong_config_set,qtiaudio,feature_gki,true)
+$(call soong_config_set,qtiaudio,feature_instance_id,true)
+$(call soong_config_set,qtiaudio,feature_mcs,true)
+$(call soong_config_set,qtiaudio,feature_sound_trigger,true)
+$(call soong_config_set,qtiaudio,feature_sva_multi_stage,true)
+
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := sun
 
