@@ -34,3 +34,14 @@ mkdir {
     dir: "modem_firmware",
     vendor: true,
 }
+
+// CneApp (vendor blob) loads libvndfwk_detect_jni.qti_vendor, which
+// LineageOS builds in core-utils-vendor. On StatiX the same JNI library is
+// hardware/qcom-caf/common's libvndfwk_detect_jni.qti, so point CneApp at it.
+install_symlink {
+    name: "CneApp.libvndfwk_detect_jni.qti_vendor_symlink",
+    vendor: true,
+    installed_location: "app/CneApp/lib/arm64/libvndfwk_detect_jni.qti_vendor.so",
+    symlink_target: "/vendor/lib64/libvndfwk_detect_jni.qti.so",
+    required: ["libvndfwk_detect_jni.qti"],
+}
