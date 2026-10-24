@@ -11,6 +11,7 @@
 #include <android-base/unique_fd.h>
 
 #include <poll.h>
+#include <string.h>
 #include <sys/ioctl.h>
 #include <fstream>
 #include <thread>
@@ -36,32 +37,28 @@ using ::aidl::android::hardware::biometrics::fingerprint::AcquiredInfo;
 namespace {
 
 static std::shared_ptr<disp_event_resp> parseDispEvent(int fd) {
-    disp_event header;
-    ssize_t headerSize = read(fd, &header, sizeof(header));
-    if (headerSize < sizeof(header)) {
-        LOG(ERROR) << "unexpected display event header size: " << headerSize;
+    // Read the whole event at once: like drm_read(), the mi_disp driver puts
+    // an event back and returns 0 when the buffer can't hold all of it.
+    alignas(disp_event) char buf[1024];
+    ssize_t size = read(fd, buf, sizeof(buf));
+    if (size < static_cast<ssize_t>(sizeof(disp_event))) {
+        LOG(ERROR) << "unexpected display event size: " << size;
         return nullptr;
     }
 
-    std::shared_ptr<disp_event_resp> response(static_cast<disp_event_resp*>(malloc(header.length)),
+    const disp_event* header = reinterpret_cast<const disp_event*>(buf);
+    if (header->length < sizeof(disp_event) || static_cast<ssize_t>(header->length) > size) {
+        LOG(ERROR) << "invalid display event length: " << header->length;
+        return nullptr;
+    }
+
+    std::shared_ptr<disp_event_resp> response(static_cast<disp_event_resp*>(malloc(header->length)),
                                               free);
     if (!response) {
         LOG(ERROR) << "failed to allocate memory for display event response";
         return nullptr;
     }
-    response->base = header;
-
-    int dataLength = response->base.length - sizeof(response->base);
-    if (dataLength < 0) {
-        LOG(ERROR) << "invalid data length: " << response->base.length;
-        return nullptr;
-    }
-
-    ssize_t dataSize = read(fd, &response->data, dataLength);
-    if (dataSize < dataLength) {
-        LOG(ERROR) << "unexpected display event data size: " << dataSize;
-        return nullptr;
-    }
+    memcpy(response.get(), buf, header->length);
 
     return response;
 }
