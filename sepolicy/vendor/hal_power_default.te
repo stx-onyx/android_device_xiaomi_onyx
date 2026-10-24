@@ -3,3 +3,14 @@ allow hal_power_default proc_walt:file rw_file_perms;
 allow hal_power_default vendor_sysfs_msm_perf:file rw_file_perms;
 
 allow hal_power_default touchfeature_device:chr_file rw_file_perms;
+
+# ADPF: boost the threads of the hint sessions with per-task uclamp
+typeattribute hal_power_default mlstrustedsubject;
+allow hal_power_default self:capability sys_nice;
+allow hal_power_default appdomain:process { getsched setsched };
+allow hal_power_default hal_graphics_composer_default:process setsched;
+allow hal_power_default surfaceflinger:process setsched;
+allow hal_power_default system_server:process setsched;
+
+# Follow the skin throttling status
+hal_client_domain(hal_power_default, hal_thermal)
