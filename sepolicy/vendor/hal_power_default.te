@@ -14,3 +14,7 @@ allow hal_power_default system_server:process setsched;
 
 # Follow the skin throttling status
 hal_client_domain(hal_power_default, hal_thermal)
+
+# Raise the GPU minimum frequency on EXPENSIVE_RENDERING
+allow hal_power_default { sysfs vendor_sysfs_kgsl }:dir search;
+allow hal_power_default vendor_sysfs_kgsl:file rw_file_perms;
