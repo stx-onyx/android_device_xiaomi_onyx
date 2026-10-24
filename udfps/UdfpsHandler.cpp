@@ -32,6 +32,9 @@
 #define DISP_FEATURE_PATH "/dev/mi_display/disp_feature"
 #define TOUCH_DEV_PATH "/dev/xiaomi-touch"
 
+#define FOD_STATUS_OFF 0
+#define FOD_STATUS_ON 1
+
 using ::aidl::android::hardware::biometrics::fingerprint::AcquiredInfo;
 
 namespace {
@@ -192,6 +195,15 @@ class XiaomiOnyxUdfpsHandler : public UdfpsHandler {
             default:
                 break;
         }
+
+        /* vendorCode
+         * 21: waiting for finger
+         * 22: finger down
+         * 23: finger up
+         */
+        if (vendorCode == 21) {
+            setFodStatus(FOD_STATUS_ON);
+        }
     }
 
     void cancel() {
@@ -215,6 +227,13 @@ class XiaomiOnyxUdfpsHandler : public UdfpsHandler {
     android::base::unique_fd touch_fd_;
     android::base::unique_fd disp_fd_;
     bool mAuthSuccess = false;
+
+    void setFodStatus(int value) {
+        common_data_t data = touchDataPrimary;
+        data.mode = Touch_Fod_Enable;
+        data.data_buf[0] = value;
+        ioctl(touch_fd_.get(), TOUCH_IOC_COMMON_DATA, &data);
+    }
 };
 
 static UdfpsHandler* create() {
