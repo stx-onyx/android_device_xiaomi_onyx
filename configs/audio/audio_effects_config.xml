@@ -91,10 +91,10 @@ SPDX-License-Identifier: BSD-3-Clause-Clear
     </effects>
 
     <postprocess>
-        <stream type="music">
-            <!-- <apply effect="music_helper"/> -->
+        <!-- <stream type="music">
+            <apply effect="music_helper"/>
             <apply effect="dlb_music_listener"/>
-        </stream>
+        </stream> -->
         <!-- <stream type="ring">
             <apply effect="ring_helper"/>
         </stream>
