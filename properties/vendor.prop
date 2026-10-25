@@ -162,7 +162,6 @@ ro.surface_flinger.set_touch_timer_ms=1100
 ro.surface_flinger.supports_background_blur=1
 ro.surface_flinger.use_color_management=true
 ro.surface_flinger.use_content_detection_for_refresh_rate=true
-ro.surface_flinger.uclamp.min=307
 ro.surface_flinger.wcg_composition_dataspace=143261696
 vendor.display.comp_mask=0
 vendor.display.disable_excl_rect=0
@@ -266,12 +265,9 @@ wifi.aware.interface=wifi-aware0
 
 # HWUI
 debug.hwui.use_hint_manager=true
-debug.hwui.target_cpu_time_percent=30
 debug.hwui.renderer=skiavk
 debug.hwui.show_overdraw=false
 debug.hwui.use_triple_buffering=true
-debug.renderengine.vulkan=true
-debug.renderengine.graphite=true
 debug.renderengine.backend=skiavkthreaded
 debug.stagefright.renderengine.backend=threaded
 
