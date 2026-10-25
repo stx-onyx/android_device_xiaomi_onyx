@@ -126,6 +126,9 @@ if [ -d /proc/sys/walt ]; then
 	# Turn off scheduler boost at the end
 	echo 0 > /proc/sys/walt/sched_boost
 
+	# Track CPU load over 8ms windows to match 120Hz frames
+	echo 2 > /proc/sys/walt/sched_ravg_window_nr_ticks
+
 	# configure input boost settings
 	echo 1075200 0 0 0 0 0 0 0 > /proc/sys/walt/input_boost/input_boost_freq
 	echo 40 > /proc/sys/walt/input_boost/input_boost_ms
