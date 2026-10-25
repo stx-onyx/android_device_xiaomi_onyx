@@ -1,0 +1,79 @@
+//
+// SPDX-FileCopyrightText: The LineageOS Project
+// SPDX-License-Identifier: Apache-2.0
+//
+
+// Libraries the vendor blobs are patched to need (see extract-files.py)
+// that StatiXOS's hardware/statix/compat doesn't have. Taken from
+// LineageOS's hardware/lineage/compat.
+
+cc_library_shared {
+    name: "libaudioutils_shim",
+    vendor: true,
+    srcs: ["libaudioutils/mutex.cpp"],
+    shared_libs: ["libaudioutils"],
+}
+
+cc_prebuilt_library_shared {
+    name: "libtinyxml2-v34",
+    vendor: true,
+    strip: {
+        none: true,
+    },
+    shared_libs: [
+        "libc",
+        "libc++",
+        "libdl",
+        "liblog",
+        "libm",
+    ],
+    target: {
+        android_arm64: {
+            srcs: ["libtinyxml2/arm64/libtinyxml2-v34.so"],
+        },
+    },
+    compile_multilib: "64",
+}
+
+// Shared protobuf 21.12 for the blobs built against it (liboischannel and
+// others). StatiX only has a static library by this name, which the vendor
+// modules can't link against; this one, in the device namespace, takes
+// precedence for them.
+cc_prebuilt_library_shared {
+    name: "libprotobuf-cpp-full-21.12-vendorcompat",
+    stem: "libprotobuf-cpp-full-21.12",
+    vendor: true,
+    strip: {
+        none: true,
+    },
+    shared_libs: [
+        "libc++",
+        "liblog",
+        "libz",
+    ],
+    target: {
+        android_arm64: {
+            srcs: ["libprotobuf/arm64/libprotobuf-cpp-full-21.12.so"],
+        },
+    },
+    compile_multilib: "64",
+}
+
+cc_prebuilt_library_shared {
+    name: "libprotobuf-cpp-lite-21.12-vendorcompat",
+    stem: "libprotobuf-cpp-lite-21.12",
+    vendor: true,
+    strip: {
+        none: true,
+    },
+    shared_libs: [
+        "libc++",
+        "liblog",
+    ],
+    target: {
+        android_arm64: {
+            srcs: ["libprotobuf/arm64/libprotobuf-cpp-lite-21.12.so"],
+        },
+    },
+    compile_multilib: "64",
+}
