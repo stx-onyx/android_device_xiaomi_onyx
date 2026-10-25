@@ -580,3 +580,8 @@ $(call inherit-product, vendor/xiaomi/onyx/onyx-vendor.mk)
 
 # Vendor MiuiCamera
 $(call inherit-product-if-exists, vendor/xiaomi/onyx-leicacamera/onyx-leicacamera-vendor.mk)
+
+# Dex2oat (Compile SystemServer & SystemUI on device with `speed`)
+PRODUCT_PRODUCT_PROPERTIES += \
+    dalvik.vm.systemservercompilerfilter=speed \
+    dalvik.vm.systemuicompilerfilter=speed
