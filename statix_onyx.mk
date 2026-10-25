@@ -17,6 +17,9 @@ INCLUDE_PIXEL_LAUNCHER := true
 $(call inherit-product, vendor/statix/config/common.mk)
 $(call inherit-product, vendor/statix/config/gsm.mk)
 
+# Inherit PandaDroid extras, if present
+$(call inherit-product-if-exists, vendor/plabs/packages.mk)
+
 PRODUCT_NAME := statix_onyx
 PRODUCT_DEVICE := onyx
 PRODUCT_MANUFACTURER := Xiaomi
